@@ -18,14 +18,20 @@ export const listEvents = async (params) => {
   let query = Event.find();
 
   if (sortField && sortField !== "") {
-    query = query.sort({ [sortField]: sortOrder });
+    query = query.sort({
+      [sortField]: sortOrder,
+      _id: "asc",
+    });
   }
 
   const events = await query.skip(skip).limit(limit);
 
+  const hasMorePages = page < totalPages ? true : false;
+
   return {
     page,
     totalPages,
+    hasMorePages,
     limit,
     itemsOnPage: events.length,
     totalItems: totalEventsNumber,

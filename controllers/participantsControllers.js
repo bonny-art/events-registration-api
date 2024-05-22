@@ -10,7 +10,7 @@ export const getEventAllParticipants = async (req, res, next) => {
     const eventAllParticipants =
       await ParticipantsService.listEventAllParticipants(query);
 
-    res.send(eventAllParticipants);
+    res.send({ participants: eventAllParticipants });
   } catch (error) {
     next(error);
   }
